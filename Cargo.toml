@@ -1,0 +1,9 @@
+[package]
+name = "atomalloc"
+version = "0.1.0"
+edition = "2021"
+description = "atomalloc is a lock-free, atomic, and concurrent memory allocator."
+license = "MPL-2.0"
+readme = "README.md"
+repository = "https://github.com/ovnanova/atomalloc"
+
