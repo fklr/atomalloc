@@ -11,7 +11,7 @@ pub enum AtomAllocError {
         requested: usize,
         supported: usize,
     },
-    SecurityViolation {
+    ManagerError {
         message: String,
     },
     BlockError(BlockError),
@@ -56,8 +56,8 @@ impl fmt::Display for AtomAllocError {
                     requested, supported
                 )
             }
-            Self::SecurityViolation { message } => {
-                write!(f, "Security violation: {}", message)
+            Self::ManagerError { message } => {
+                write!(f, "Manager error: {}", message)
             }
             Self::BlockError(e) => write!(f, "Block error: {}", e),
         }
@@ -68,12 +68,20 @@ impl fmt::Display for BlockError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::OutOfBounds { offset, len, size } => {
-                write!(f, "Out of bounds access: offset {} len {} exceeds size {}", offset, len, size)
+                write!(
+                    f,
+                    "Out of bounds access: offset {} len {} exceeds size {}",
+                    offset, len, size
+                )
             }
             Self::NotInitialized => write!(f, "Block not initialized"),
             Self::InUse => write!(f, "Block already in use"),
             Self::InvalidGeneration { block, expected } => {
-                write!(f, "Invalid block generation: {} (expected {})", block, expected)
+                write!(
+                    f,
+                    "Invalid block generation: {} (expected {})",
+                    block, expected
+                )
             }
         }
     }
