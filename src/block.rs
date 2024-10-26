@@ -59,7 +59,7 @@ impl Block {
             for (i, &byte) in data[chunk_start..chunk_end].iter().enumerate() {
                 self.data[offset + chunk_start + i].store(byte, Ordering::Release);
             }
-            tokio::task::yield_now().await;
+            smol::future::yield_now().await;
         }
 
         self.state.fetch_and(!ZEROED_FLAG, Ordering::Release);
@@ -81,7 +81,7 @@ impl Block {
             for i in chunk_start..chunk_end {
                 result.push(self.data[offset + i].load(Ordering::Acquire));
             }
-            tokio::task::yield_now().await;
+            smol::future::yield_now().await;
         }
 
         Ok(result)
@@ -104,7 +104,7 @@ impl Block {
             for i in offset..end {
                 self.data[i].store(0, Ordering::Release);
             }
-            tokio::task::yield_now().await;
+            smol::future::yield_now().await;
         }
 
         self.state.fetch_or(ZEROED_FLAG, Ordering::Release);
@@ -142,7 +142,7 @@ impl BlockOps for Block {
                 for i in offset..end {
                     block.data[i].store(0, Ordering::Release);
                 }
-                tokio::task::yield_now().await;
+                smol::future::yield_now().await;
             }
 
             block.state.fetch_or(ZEROED_FLAG, Ordering::Release);

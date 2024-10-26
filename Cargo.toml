@@ -8,8 +8,8 @@ readme = "README.md"
 repository = "https://github.com/ovnanova/atomalloc"
 
 [dependencies]
-tokio = { version = "1.41.0", features = ["full"] }
 crossbeam = "0.8.4"
+smol = "2.0.2"
 
 [profile.release]
 lto = true
@@ -17,3 +17,7 @@ codegen-units = 1
 panic = "abort"
 opt-level = 3
 strip = true
+
+[dev-dependencies]
+macro_rules_attribute = "0.2.0"
+smol-macros = "0.1.1"

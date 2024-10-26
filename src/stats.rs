@@ -36,42 +36,42 @@ impl AtomAllocStats {
 
     pub async fn record_cache_hit(&self) {
         self.cache_hits.fetch_add(1, Ordering::Release);
-        tokio::task::yield_now().await;
+        smol::future::yield_now().await;
     }
 
     pub async fn record_cache_miss(&self) {
         self.cache_misses.fetch_add(1, Ordering::Release);
-        tokio::task::yield_now().await;
+        smol::future::yield_now().await;
     }
 
     // Stats retrieval
     pub async fn allocated_bytes(&self) -> usize {
         let result = self.total_allocated.load(Ordering::Acquire);
-        tokio::task::yield_now().await;
+        smol::future::yield_now().await;
         result
     }
 
     pub async fn freed_bytes(&self) -> usize {
         let result = self.total_freed.load(Ordering::Acquire);
-        tokio::task::yield_now().await;
+        smol::future::yield_now().await;
         result
     }
 
     pub async fn current_bytes(&self) -> usize {
         let result = self.current_allocated.load(Ordering::Acquire);
-        tokio::task::yield_now().await;
+        smol::future::yield_now().await;
         result
     }
 
     pub async fn cache_hits(&self) -> usize {
         let result = self.cache_hits.load(Ordering::Acquire);
-        tokio::task::yield_now().await;
+        smol::future::yield_now().await;
         result
     }
 
     pub async fn cache_misses(&self) -> usize {
         let result = self.cache_misses.load(Ordering::Acquire);
-        tokio::task::yield_now().await;
+        smol::future::yield_now().await;
         result
     }
 }

@@ -42,7 +42,7 @@ impl AtomAlloc {
             stats.clone(),
         ));
 
-        tokio::task::yield_now().await;
+        smol::future::yield_now().await;
 
         Self {
             pool,
