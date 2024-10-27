@@ -2,7 +2,7 @@
 name = "atomalloc"
 version = "0.1.0"
 edition = "2021"
-description = "atomalloc is an asynchronous, atomic, and lock-free memory allocator."
+description = "atomalloc is an asynchronous, atomic, and lock-free memory allocator written in pure safe Rust"
 license = "MPL-2.0"
 readme = "README.md"
 repository = "https://github.com/ovnanova/atomalloc"
